@@ -11,7 +11,7 @@ my_print " "
 my_print "Mounting /data ..."
 mountpoint -q /data || mount /data
 
-before_dalvik="$(du -ms /data/dalvik-cache | cut -f1)"
+before_dalvik="$(du -s /data/dalvik-cache | cut -f1)"
 before_resource="$(du -s /data/resource-cache | cut -f1)"
 
 my_print " "
@@ -27,11 +27,11 @@ rm -rf /data/resource-cache/*
 my_print "Done"
 my_print " "
 
-after_dalvik="$(du -ms /data/dalvik-cache | cut -f1)"
+after_dalvik="$(du -s /data/dalvik-cache | cut -f1)"
 after_resource="$(du -s /data/resource-cache | cut -f1)"
 
-my_print "dalvik-cache before: ${before_dalvik}mb"
-my_print "dalvik-cache after:  ${after_dalvik}mb"
+my_print "dalvik-cache before: ${before_dalvik}b"
+my_print "dalvik-cache after:  ${after_dalvik}b"
 my_print "resource-cache before: ${before_resource}b"
 my_print "resource-cache after:  ${after_resource}b"
 
