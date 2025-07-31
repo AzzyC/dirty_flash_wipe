@@ -8,32 +8,39 @@ my_print() {
 
 my_print " "
 
-my_print "Mounting /data ..."
+my_print "Mounting /data and /cache..."
 mountpoint -q /data || mount /data
+mountpoint -q /cache || mount /cache
 
 before_dalvik="$(du -s /data/dalvik-cache | cut -f1)"
 before_resource="$(du -s /data/resource-cache | cut -f1)"
+before_cache="$(du -s /cache | cut -f1)"
 
 my_print " "
 
-my_print "Wiping /data/dalvik-cache ..."
+my_print "---Data---"
+my_print "Wiping /data/dalvik-cache..."
 rm -rf /data/dalvik-cache/*
 my_print "Done"
 
+my_print "Wiping /data/resource-cache..."
+rm -rf /data/resource-cache/*
+my_print "Done"
 my_print " "
 
-my_print "Wiping /data/resource-cache ..."
-rm -rf /data/resource-cache/*
+my_print "---Cache---"
+my_print "Wiping /cache..."
+rm -rf /cache/*
 my_print "Done"
 my_print " "
 
 after_dalvik="$(du -s /data/dalvik-cache | cut -f1)"
 after_resource="$(du -s /data/resource-cache | cut -f1)"
+after_cache="$(du -s /cache | cut -f1)"
 
-my_print "dalvik-cache before: ${before_dalvik}b"
-my_print "dalvik-cache after:  ${after_dalvik}b"
-my_print "resource-cache before: ${before_resource}b"
-my_print "resource-cache after:  ${after_resource}b"
+my_print "dalvik-cache: ${before_dalvik}b -> ${after_dalvik}b"
+my_print "resource-cache: ${before_resource}b -> ${after_resource}b"
+my_print "cache: ${before_cache}b -> ${after_cache}b"
 
 my_print " "
 
